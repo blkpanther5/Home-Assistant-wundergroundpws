@@ -39,15 +39,17 @@ LENGTH_METERS = 'm'
 
 DEFAULT_LANG = 'en-US'
 
-MIN_TIME_BETWEEN_UPDATES = timedelta(minutes=5)
+MIN_TIME_BETWEEN_UPDATES = timedelta(minutes=30)
+
+_LOGGER.warning(homeassistant.util.unit_system.UnitSystem.is_metric)
 
 conf_file = config.get_default_config_dir() + '/configuration.yaml'
-load_config = config.load_yaml_config_file(conf_file)
+load_config = config.load_yaml_config_file('/config/configuration.yaml')
 
 try:
     UNIT_SYSTEM = load_config['homeassistant']['unit_system']
 except KeyError as err:
-    UNIT_SYSTEM = "metric"
+    UNIT_SYSTEM = "imperial"
 
 if UNIT_SYSTEM == 'imperial':
     TEMPUNIT = TEMP_FAHRENHEIT

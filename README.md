@@ -1,6 +1,11 @@
 # Home-Assistant-wundergroundpws
 Home Assistant custom component sensor for Weather Underground personal weather station users
 
+### This fork is to correct several issues in this custom component, including:
+  * Imperial unit detection not working (this fork is hard coded to imperial).
+  * Compatibility with running Home Assistant Core in docker (this fork is hard coded to look for config files in /config).
+  * Reduced update frequency, in my environment, updating every 5 minutes causes my API limit to be reached about halfway through the day.
+
 :+1: If you find this product useful, feel free to buy me a beer: https://paypal.me/cytecheng
 
 The `wundergroundpws` platform uses [Weather Underground](http://www.wunderground.com) as a source for current weather information.

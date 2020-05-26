@@ -3,6 +3,8 @@ Support for WUndergroundPWS weather service.
 
 For more details about this platform, please refer to the documentation at
 https://home-assistant.io/components/sensor.wundergroundpws/
+
+Modified for docker support.
 """
 import asyncio
 from datetime import timedelta
@@ -26,6 +28,7 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.util import Throttle
 import homeassistant.helpers.config_validation as cv
 import homeassistant.config as config
+from homeassistant.util.unit_system import UnitSystem
 
 _RESOURCECURRENT = 'https://api.weather.com/v2/pws/observations/current?stationId={}&format=json&units={}&apiKey={}'
 _RESOURCEFORECAST = 'https://api.weather.com/v3/wx/forecast/daily/5day?geocode={},{}&units={}&{}&format=json&apiKey={}'
@@ -41,13 +44,11 @@ DEFAULT_LANG = 'en-US'
 
 MIN_TIME_BETWEEN_UPDATES = timedelta(minutes=30)
 
-_LOGGER.warning(homeassistant.util.unit_system.UnitSystem.is_metric)
-
-conf_file = config.get_default_config_dir() + '/configuration.yaml'
-load_config = config.load_yaml_config_file('/config/configuration.yaml')
-
 try:
-    UNIT_SYSTEM = load_config['homeassistant']['unit_system']
+    if UnitSystem.is_metric == True:
+        UNIT_SYSTEM = "metric"
+    else:
+        UNIT_SYSTEM = "imperial"
 except KeyError as err:
     UNIT_SYSTEM = "imperial"
 

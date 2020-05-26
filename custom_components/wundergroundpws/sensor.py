@@ -65,7 +65,7 @@ else:
     PRESSUREUNIT = 'mBar'
 
 
-# Helper classes for declaring sensor configurations
+# Helper classes for declaring sensor configurations 
 
 class WUSensorConfig:
     """WU Sensor Configuration.
